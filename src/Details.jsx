@@ -24,7 +24,7 @@ export default function Detail(props) {
       <select id="sku" value={sku} onChange={(e) => setSku(e.target.value)}>
         <option value="">What Size?</option>
         {product.skus.map((skuObj) => (
-          <option key={skuObj.sku} value="skuObj.sku">
+          <option key={skuObj.sku} value={skuObj.sku}>
             {skuObj.size}
           </option>
         ))}

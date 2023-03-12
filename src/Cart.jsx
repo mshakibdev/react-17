@@ -11,6 +11,7 @@ export default function Cart({ cart, updateQuantity }) {
     const { price, name, image, skus } = products.find(
       (p) => p.id === parseInt(id)
     );
+    
     const { size } = skus.find((s) => s.sku === sku);
 
     return (
