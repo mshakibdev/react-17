@@ -10,14 +10,22 @@ import { useState } from "react";
 export default function App() {
   const [cart, setCart] = useState([]);
   function addToCart(id, sku) {
+    // function form of setState
     setCart((items) => {
       const itemInCart = items.find((item) => item.sku === sku);
       /* 
-
-        itemInCart.quantity++
-        Don't do this.In react state is immutable
-      
+      items is current state which is automatically provided by React in
+      function form of setState update
       */
+      if (itemInCart) {
+        /* if item exist in array return new array with hte matching item replaced */
+        return items.map((item) =>
+          item.sku === sku ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        // return new object append to existing array
+        return [...items, { id, sku, quantity: 1 }];
+      }
     });
   }
   return (
@@ -28,7 +36,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<h1>Welcome to home page !</h1>} />
             <Route path="/:category" element={<Products />} />
-            <Route path="/:category/:id" element={<Detail />} />
+            <Route
+              path="/:category/:id"
+              element={<Detail addToCart={addToCart} />}
+            />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>
